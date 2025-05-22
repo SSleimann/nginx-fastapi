@@ -29,6 +29,10 @@ Las tecnologias usadas en este proyecto son:
 - [ ] Crear `docker-compose.yml`
 - [ ] Finalizar la documentación
 
+## Licencia
+
+Este proyecto está licenciado bajo los términos de la [licencia](LICENSE) MIT.
+
 <!-- Badges -->
 [docker-badge]: https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
 [fastapi-badge]: https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi

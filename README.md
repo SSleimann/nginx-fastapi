@@ -4,7 +4,7 @@
 </div>
 <br/>
 
-## About The Project
+## Acerca del Proyecto
 
 Este proyecto demuestra la integracion de Nginx como servidor proxy para una API sencilla desarrollada en FastAPI. A su vez tambien tiene integrado Prometheus para el monitoreo de metricas y rendimiento.
 
@@ -14,20 +14,20 @@ Los objetivos principales del proyecot son.
 - Proporcionar un ejemplo practico que sirva de guia.
 - Utilizar Prometheus y mostar ejemplos practicos en la web.
 
-### Built With
+### Construido con
 
-Technologies used in this project are:
+Las tecnologias usadas en este proyecto son:
 
 ![fastapi-badge] ![docker-badge] ![nginx-badge] ![prometheus-badge]
 
 ## Roadmap
 
-- [x] Initial setup and FastAPI integration
-- [ ] Prometheus integration for monitoring
-- [x] Dockerize the application
-- [ ] Nginx configuration as a reverse proxy
-- [ ] Create `docker-compose.yml`
-- [ ] Finalize documentation
+- [x] Configuración inicial e integración de FastAPI
+- [ ] Integración de Prometheus para el monitoreo
+- [x] Dockerización de la aplicación
+- [ ] Configuración de Nginx como proxy inverso
+- [ ] Crear `docker-compose.yml`
+- [ ] Finalizar la documentación
 
 <!-- Badges -->
 [docker-badge]: https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white

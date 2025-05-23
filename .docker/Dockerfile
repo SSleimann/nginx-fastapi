@@ -25,7 +25,9 @@ ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 FROM python-base AS builder
 
 RUN apk update && apk add --no-cache \
-    curl && \
+    build-base \
+    curl \
+    linux-headers && \
     # Install poetry
     curl -sSL https://install.python-poetry.org | python3 - --version "$POETRY_VERSION"
 
@@ -47,6 +49,12 @@ WORKDIR /app
 # Copy the application code
 COPY nginx_fastapi nginx_fastapi
 
+COPY scripts scripts
+
+COPY gunicorn.conf.py gunicorn.conf.py
+
 COPY main.py main.py
 
-ENTRYPOINT [ "gunicorn",  "-k", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8080", "-w", "4", "main:app"]
+RUN chmod +x scripts/*.sh
+
+ENTRYPOINT [ "./scripts/entrypoint.sh" ]

@@ -1,0 +1,44 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile
+    networks:
+      - monitoring
+    deploy:
+      replicas: 2
+      mode: replicated
+      endpoint_mode: dnsrr
+    labels:
+      - "prometheus_job=web"
+    restart: unless-stopped
+  
+  prometheus-app:
+    image: prom/prometheus
+    volumes:
+      - ./config/prometheus.yaml:/etc/prometheus/prometheus.yaml
+      - /var/run/docker.sock:/var/run/docker.sock # Docker socket for service discovery
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml' # Configuration file
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries' # Console libraries
+      - '--web.console.templates=/usr/share/prometheus/consoles' # Console templates
+      - '--storage.tsdb.path=/prometheus' # Data storage path
+      - '--storage.tsdb.retention.time=15d' # Data retention time
+      - '--storage.tsdb.wal-compression' # Write Ahead Log compression
+      - '--web.enable-lifecycle' # Enable web interface lifecycle management
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway" # For accessing host services
+    networks:
+      - monitoring
+    user: root # Run as root to access Docker socket
+
+networks:
+  monitoring:
+    driver: bridge
+
+volumes:
+  prometheus_data:

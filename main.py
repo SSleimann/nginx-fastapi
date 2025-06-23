@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 from typing import Any
 
 from fastapi import FastAPI, Request, Response
+from fastapi.responses import PlainTextResponse
 from loguru import logger
 from prometheus_client import CollectorRegistry, generate_latest, multiprocess
 from psutil import cpu_percent, virtual_memory  # type: ignore
@@ -72,7 +73,7 @@ async def request_interceptor(request: Request, call_next: Any) -> Response:
     return response
 
 
-@app.get("/metrics")
+@app.get("/metrics", response_class=PlainTextResponse)
 async def metrics() -> bytes:
     """
     Expose the metrics endpoint for Prometheus to scrape.

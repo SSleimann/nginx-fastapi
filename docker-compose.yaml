@@ -5,12 +5,22 @@ services:
       dockerfile: ./.docker/Dockerfile
     networks:
       - monitoring
-    deploy:
-      replicas: 2
-      mode: replicated
-      endpoint_mode: dnsrr
     labels:
       - "prometheus_job=web"
+    ports:
+      - "8000:8080"
+    restart: unless-stopped
+
+  web-2:
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile
+    networks:
+      - monitoring
+    labels:
+      - "prometheus_job=web"
+    ports:
+      - "8001:8080"
     restart: unless-stopped
   
   prometheus-app:

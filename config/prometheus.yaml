@@ -17,6 +17,10 @@ scrape_configs:
         regex: ^/(.+)$
         replacement: "$1"
 
+  - job_name: "docker-host"
+    static_configs:
+      - targets: ["host.docker.internal:9090"]
+
   - job_name: "prometheus"
     static_configs:
-      - targets: ["host.docker.internal:8080"]
+      - targets: ["localhost:9090"]

@@ -23,10 +23,10 @@ Las tecnologias usadas en este proyecto son:
 ## Roadmap
 
 - [x] Configuración inicial e integración de FastAPI.
-- [ ] Integración de Prometheus para el monitoreo.
+- [x] Integración de Prometheus para el monitoreo.
 - [x] Dockerización de la aplicación.
 - [ ] Configuración de Nginx como proxy inverso.
-- [ ] Crear `docker-compose.yml`.
+- [x] Crear `docker-compose.yml`.
 - [ ] Agregar un sistema de agentes para hacer recomendaciones de los recursos del sistema.
 - [ ] Finalizar la documentación.
 

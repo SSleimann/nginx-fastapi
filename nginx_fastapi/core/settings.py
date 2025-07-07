@@ -16,6 +16,10 @@ class AppSettings(BaseSettings):
     # Environment
     ENV: Enviroments = Enviroments.DEV
 
+    # Metrics Authentication
+    API_METRICS_USERNAME: str = "admin"
+    API_METRICS_PASSWORD: str = "admin"
+
 
 @lru_cache
 def get_settings() -> AppSettings:

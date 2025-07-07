@@ -1,11 +1,13 @@
 import asyncio
+import secrets
 import time
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
-from typing import Any
+from typing import Annotated, Any
 
-from fastapi import FastAPI, Request, Response
+from fastapi import Depends, FastAPI, HTTPException, Request, Response
 from fastapi.responses import PlainTextResponse
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from loguru import logger
 from prometheus_client import CollectorRegistry, generate_latest, multiprocess
 from psutil import cpu_percent, virtual_memory  # type: ignore
@@ -19,6 +21,8 @@ from nginx_fastapi.metrics import (
     REQUEST_LATENCY,
     REQUESTS_IN_PROGRESS,
 )
+
+auth_scheme = HTTPBasic()
 
 
 @asynccontextmanager
@@ -74,10 +78,32 @@ async def request_interceptor(request: Request, call_next: Any) -> Response:
 
 
 @app.get("/metrics", response_class=PlainTextResponse)
-async def metrics() -> bytes:
+async def metrics(
+    credentials: Annotated[HTTPBasicCredentials, Depends(auth_scheme)],
+) -> bytes:
     """
     Expose the metrics endpoint for Prometheus to scrape.
     """
+
+    settings = get_settings()
+
+    compared_username = secrets.compare_digest(
+        credentials.username.encode("utf8"),
+        settings.API_METRICS_USERNAME.encode("utf8"),
+    )
+    compared_password = secrets.compare_digest(
+        credentials.password.encode("utf8"),
+        settings.API_METRICS_PASSWORD.encode("utf8"),
+    )
+
+    if not (compared_username and compared_password):
+        logger.warning("Unauthorized access attempt to /metrics endpoint.")
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid credentials",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+
     registry = CollectorRegistry()
     multiprocess.MultiProcessCollector(registry)
 

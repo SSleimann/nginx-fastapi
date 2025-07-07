@@ -8,6 +8,9 @@ scrape_configs:
       - host: "unix:///var/run/docker.sock"
         port: 8080
 
+    basic_auth:
+      username: admin
+      password: admin
     relabel_configs:
       - source_labels: [__meta_docker_container_label_prometheus_job]
         action: keep

@@ -6,19 +6,90 @@
 
 ## Acerca del Proyecto
 
-Este proyecto demuestra la integracion de Nginx como servidor proxy para una API sencilla desarrollada en FastAPI. A su vez tambien tiene integrado Prometheus para el monitoreo de metricas y rendimiento.
+Este proyecto demuestra la integración de Nginx como servidor proxy para una API sencilla desarrollada en FastAPI. A su vez también tiene integrado Prometheus para el monitoreo de métricas y rendimiento.
 
-Los objetivos principales del proyecot son.
+Los objetivos principales del proyecto son:
 
-- Mostrar la configuracion y despligue de estas tecnologias.
-- Proporcionar un ejemplo practico que sirva de guia.
-- Utilizar Prometheus y mostar ejemplos practicos en la web.
+- Mostrar la configuración y despliegue de estas tecnologías.
+- Proporcionar un ejemplo práctico que sirva de guía.
+- Utilizar Prometheus y mostrar ejemplos prácticos en la web.
+- Demostrar buenas prácticas de arquitectura con contenedores.
+
+## Características
+
+- ✅ **FastAPI**: API moderna y rápida con documentación automática
+- ✅ **Nginx**: Servidor proxy inverso para balanceo de carga
+- ✅ **Prometheus**: Monitoreo y métricas
+- ✅ **Docker**: Containerización completa de la aplicación
+- ✅ **Logging**: Sistema de logs estructurado con Loguru
+- ✅ **Autenticación**: Protección del endpoint de métricas
+- ✅ **Salud del sistema**: Endpoints para monitoreo de CPU y memoria
 
 ### Construido con
 
 Las tecnologias usadas en este proyecto son:
 
 ![fastapi-badge] ![docker-badge] ![nginx-badge] ![prometheus-badge]
+
+## Arquitectura
+
+![Architecture](docs/architecture.png)
+
+## Instalación y Configuración
+
+### Requisitos
+
+- **Python 3.13+** (para desarrollo local)
+- **Docker** y **Docker Compose**
+- **Poetry** (manejo de dependencias)
+- **Git** (instalación del proyecto)
+
+### Instalación con Docker
+
+1. **Clona el repositorio**
+
+    ```bash
+    git clone https://github.com/SSleimann/nginx-fastapi.git
+    cd nginx-fastapi
+    ```
+
+2. **Construir y ejecutar los contenedores**
+
+    ```bash
+    docker compose up -d
+    ```
+
+3. **Acceder a los servicios**
+
+   - **Prometheus**: <http://localhost:9090>
+   - **FastAPI API**: <http://localhost:80>
+   - **Swagger Docs**: <http://localhost:80/docs>
+   - **Metricas**: <http://localhost:80/metrics>
+
+## Instalacion Local
+
+1. **Clona el repositorio**
+
+    ```bash
+    git clone https://github.com/SSleimann/nginx-fastapi.git
+    cd nginx-fastapi
+    ```
+
+2. **Instala las dependencias**
+
+    ```bash
+    poetry install --no-root
+    ```
+
+3. **Iniciar servidor**
+
+    ```bash
+    poetry run uvicorn --reload --port 8080 main:app
+    ```
+
+# Documentación
+
+Para información más detallada, consulta la [documentación completa](docs/)
 
 ## Roadmap
 
@@ -27,8 +98,14 @@ Las tecnologias usadas en este proyecto son:
 - [x] Dockerización de la aplicación.
 - [x] Configuración de Nginx como proxy inverso.
 - [x] Crear `docker-compose.yml`.
-- [ ] Agregar un sistema de agentes para hacer recomendaciones de los recursos del sistema.
-- [ ] Finalizar la documentación.
+- [x] Finalizar la documentación.
+
+## Soporte
+
+Para mas informacion, puedes contactarme:
+
+- **Email**: <sleimanjose23@hotmail.com>
+- **LinkedIn**: <https://www.linkedin.com/in/sleiman-orocua/>
 
 ## Licencia
 
